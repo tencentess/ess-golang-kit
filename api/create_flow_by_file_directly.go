@@ -1,6 +1,8 @@
 package api
 
 import (
+	"SdkTools/api/file-upload-download"
+	"SdkTools/api/flow-manage"
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 )
 
@@ -9,21 +11,21 @@ func CreateFlowByFileDirectly(userId, fileBase64, flowName string, approvers []*
 	schemeUrl string, err error) {
 
 	// 上传文件获取fileId
-	uploadResp, err := UploadFiles(userId, fileBase64, flowName)
+	uploadResp, err := file_upload_download.UploadFiles(userId, fileBase64, flowName)
 	if err != nil {
 		return "", "", err
 	}
 	fileId := uploadResp.Response.FileIds[0]
 
-	// 创建签署流程
-	createFlowResp, err := CreateFlowByFiles(userId, flowName, *fileId, approvers)
+	// 使用文件创建签署流程
+	createFlowResp, err := flow_manage.CreateFlowByFiles(userId, flowName, *fileId, approvers)
 	if err != nil {
 		return "", "", err
 	}
 	flowId = *createFlowResp.Response.FlowId
 
 	// 获取签署链接
-	schemeResp, err := CreateSchemeUrl(userId, flowId)
+	schemeResp, err := flow_manage.CreateSchemeUrl(userId, flowId)
 	if err != nil {
 		return "", "", err
 	}

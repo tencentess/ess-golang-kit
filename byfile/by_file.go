@@ -28,6 +28,7 @@ func BuildApprovers() []*ess.ApproverInfo {
 }
 
 // 打包个人签署方参与者信息
+// 可选参数传入请参考：https://cloud.tencent.com/document/api/1323/70369#ApproverInfo
 func BuildPersonApprover(name, mobile string) *ess.ApproverInfo {
 	// 签署参与者信息
 	approver := &ess.ApproverInfo{
@@ -35,24 +36,34 @@ func BuildPersonApprover(name, mobile string) *ess.ApproverInfo {
 		// 0：企业
 		// 1：个人
 		// 3：企业静默签署
-		// 注：类型为3（企业静默签署）时，此接口会默认完成该签署方的签署。
+		// 这里我们设置为1，即身份为个人
 		ApproverType: common.Int64Ptr(1),
+
 		// 本环节需要操作人的名字
 		ApproverName: common.StringPtr(name),
+
 		// 本环节需要操作人的手机号
 		ApproverMobile: common.StringPtr(mobile),
-		// sms--短信，none--不通知
+
+		// 合同发起后是否短信通知签署方进行签署： sms--短信，none--不通知
 		NotifyType: common.StringPtr("sms"),
-		// 本环节操作人签署控件配置，为企业静默签署时，只允许类型为SIGN_SEAL（印章）和SIGN_DATE（日期）控件，并且传入印章编号
+
+		// 签署人签署控件配置，数组传入，可以设置多个。此处我们为签署方设置一个手写签名控件。
+		// 可选参数传入请参考：https://cloud.tencent.com/document/api/1323/70369#Component
 		SignComponents: []*ess.Component{
 			{
+				// 以下4项确定了控件在pdf文件内的坐标位置以及长宽信息，这里我们给出一些预设值
+				// 如何确定坐标请参考： https://doc.weixin.qq.com/doc/w3_AKgAhgboACgsf9NKAVqSOKVIkQ0vQ?scode=AJEAIQdfAAoz9916DRAKgAhgboACg
 				ComponentPosX:   common.Float64Ptr(146.15625),
 				ComponentPosY:   common.Float64Ptr(472.78125),
 				ComponentWidth:  common.Float64Ptr(112),
 				ComponentHeight: common.Float64Ptr(40),
-				FileIndex:       common.Int64Ptr(0),
-				ComponentPage:   common.Int64Ptr(1),
-				ComponentType:   common.StringPtr("SIGN_SIGNATURE"),
+				// 控件所属文件的序号，目前均为单文件发起，所以我们固定填入序号0
+				FileIndex: common.Int64Ptr(0),
+				// 控件所在的页面数，从1开始取值，请勿超出pdf文件的最大页数
+				ComponentPage: common.Int64Ptr(1),
+				// 控件类型，这里选择用户手写签名SIGN_SIGNATURE，阅读传参文档时请注意此处为SignComponent控件类型
+				ComponentType: common.StringPtr("SIGN_SIGNATURE"),
 			},
 		},
 	}
@@ -68,25 +79,38 @@ func BuildOrganizationApprover(name, mobile, organizationName string) *ess.Appro
 		// 1：个人
 		// 3：企业静默签署
 		// 注：类型为3（企业静默签署）时，此接口会默认完成该签署方的签署。
+		// 这里我们设置为企业方手动签署0
 		ApproverType: common.Int64Ptr(0),
+
 		// 本环节需要操作人的名字
 		ApproverName: common.StringPtr(name),
+
 		// 本环节需要操作人的手机号
 		ApproverMobile: common.StringPtr(mobile),
-		// 本环节需要企业操作人的企业名称
+
+		// 本环节需要企业操作人的企业名称，请注意此处的企业名称要是真实有效的，企业需要在电子签平台进行注册且签署人有加入该企业方能签署。
+		// 注：如果该企业尚未注册，或者签署人尚未加入企业，合同仍然可以发起
 		OrganizationName: common.StringPtr(organizationName),
-		// sms--短信，none--不通知
+
+		// 合同发起后是否短信通知签署方进行签署：sms--短信，none--不通知
 		NotifyType: common.StringPtr("none"),
-		// 本环节操作人签署控件配置，为企业静默签署时，只允许类型为SIGN_SEAL（印章）和SIGN_DATE（日期）控件，并且传入印章编号
+
+		// 签署人签署控件配置，数组传入，可以设置多个。此处我们为签署方设置一个印章控件。
+		// 可选参数传入请参考：https://cloud.tencent.com/document/api/1323/70369#Component
 		SignComponents: []*ess.Component{
 			{
+				// 以下4项确定了控件在pdf文件内的坐标位置以及长宽信息，这里我们给出一些预设值
+				// 如何确定坐标请参考： https://doc.weixin.qq.com/doc/w3_AKgAhgboACgsf9NKAVqSOKVIkQ0vQ?scode=AJEAIQdfAAoz9916DRAKgAhgboACg
 				ComponentPosX:   common.Float64Ptr(246.15625),
 				ComponentPosY:   common.Float64Ptr(472.78125),
 				ComponentWidth:  common.Float64Ptr(112),
 				ComponentHeight: common.Float64Ptr(40),
-				FileIndex:       common.Int64Ptr(0),
-				ComponentPage:   common.Int64Ptr(1),
-				ComponentType:   common.StringPtr("SIGN_SEAL"),
+				// 控件所属文件的序号，目前均为单文件发起，所以我们固定填入序号0
+				FileIndex: common.Int64Ptr(0),
+				// 控件所在的页面数，从1开始取值，请勿超出pdf文件的最大页数
+				ComponentPage: common.Int64Ptr(1),
+				// 控件类型，这里选择印章控件SIGN_SEAL，阅读传参文档时请注意此处为SignComponent控件类型
+				ComponentType: common.StringPtr("SIGN_SEAL"),
 			},
 		},
 	}
@@ -102,53 +126,29 @@ func BuildServerSignApprover() *ess.ApproverInfo {
 		// 1：个人
 		// 3：企业静默签署
 		// 注：类型为3（企业静默签署）时，此接口会默认完成该签署方的签署。
+		// 这里我们设置签署方类型为企业方静默签署3，注意当类型为静默签署时，签署人会默认设置为发起方经办人
 		ApproverType: common.Int64Ptr(3),
-		// 本环节操作人签署控件配置，为企业静默签署时，只允许类型为SIGN_SEAL（印章）和SIGN_DATE（日期）控件，并且传入印章编号
+
+		// 签署人签署控件配置，数组传入，可以设置多个。签署方类型为企业静默签署时，只允许类型为SIGN_SEAL（印章）和SIGN_DATE（日期）控件，并且传入印章编号
+		// 可选参数传入请参考：https://cloud.tencent.com/document/api/1323/70369#Component
 		SignComponents: []*ess.Component{
 			{
+				// 以下4项确定了控件在pdf文件内的坐标位置以及长宽信息，这里我们给出一些预设值
+				// 如何确定坐标请参考： https://doc.weixin.qq.com/doc/w3_AKgAhgboACgsf9NKAVqSOKVIkQ0vQ?scode=AJEAIQdfAAoz9916DRAKgAhgboACg
 				ComponentPosX:   common.Float64Ptr(346.15625),
 				ComponentPosY:   common.Float64Ptr(472.78125),
 				ComponentWidth:  common.Float64Ptr(112),
 				ComponentHeight: common.Float64Ptr(40),
-				FileIndex:       common.Int64Ptr(0),
-				ComponentPage:   common.Int64Ptr(1),
-				ComponentType:   common.StringPtr("SIGN_SEAL"),
-				ComponentValue:  common.StringPtr(ess_golang_kit.ServerSignSealId),
+				// 控件所属文件的序号，目前均为单文件发起，所以我们固定填入序号0
+				FileIndex: common.Int64Ptr(0),
+				// 控件所在的页面数，从1开始取值，请勿超出pdf文件的最大页数
+				ComponentPage: common.Int64Ptr(1),
+				// 控件类型，这里选择印章控件SIGN_SEAL，阅读传参文档时请注意此处为SignComponent控件类型
+				ComponentType: common.StringPtr("SIGN_SEAL"),
+				// 印章Id，发起后会使用该印章在指定区域进行自动签章
+				ComponentValue: common.StringPtr(ess_golang_kit.ServerSignSealId),
 			},
 		},
 	}
 	return approver
-}
-
-// 构建控件信息
-func BuildComponent(componentPosX, componentPosY, componentWidth, componentHeight float64,
-	fileIndex, componentPage int64, componentType, componentValue string) *ess.Component {
-	component := &ess.Component{
-		// 参数控件X位置，单位pt
-		ComponentPosX: common.Float64Ptr(componentPosX),
-		// 参数控件Y位置，单位pt
-		ComponentPosY: common.Float64Ptr(componentPosY),
-		// 参数控件宽度，单位pt
-		ComponentWidth: common.Float64Ptr(componentWidth),
-		// 参数控件高度，单位pt
-		ComponentHeight: common.Float64Ptr(componentHeight),
-		// 控件所属文件的序号（取值为：0-N）
-		FileIndex: common.Int64Ptr(fileIndex),
-		// 参数控件所在页码，取值为：1-N
-		ComponentPage: common.Int64Ptr(componentPage),
-		// 如果是 Component 控件类型，则可选类型为：
-		// TEXT - 单行文本
-		// MULTI_LINE_TEXT - 多行文本
-		// CHECK_BOX - 勾选框
-		// ATTACHMENT - 附件
-		// SELECTOR - 选择器
-		// 如果是 SignComponent 控件类型，则可选类型为：
-		// SIGN_SEAL - 签署印章控件，静默签署时需要传入印章id作为ComponentValue
-		// SIGN_DATE - 签署日期控件
-		// SIGN_SIGNATURE - 手写签名控件，静默签署时不能使用
-		ComponentType: common.StringPtr(componentType),
-		// 自动签署所对应的印章Id
-		ComponentValue: common.StringPtr(componentValue),
-	}
-	return component
 }

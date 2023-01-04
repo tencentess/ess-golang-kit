@@ -30,7 +30,7 @@ v1.0.170后可以按照产品下载，您只需下载基础包和对应的产品
 1. 安装公共基础包：
 
     ```bash
-    go get -v -u github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common
+    go get -v -u github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/client-service
     ```
 
 2. 安装对应的产品包(如ess):
