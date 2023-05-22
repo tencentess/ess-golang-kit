@@ -1,25 +1,26 @@
 package api
 
 import (
-	"SdkTools"
-	"SdkTools/api/flow-manage"
-	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
+	essGolangKit "SdkTools"
+	flowManage "SdkTools/api/flow-manage"
 	"time"
+
+	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 )
 
-// 通过模板发起签署流程，并查询签署链接
+// CreateFlowByTemplateDirectly 通过模板发起签署流程，并查询签署链接
 func CreateFlowByTemplateDirectly(userId, flowName string, approvers []*ess.FlowCreateApprover) (flowId,
 	schemeUrl string, err error) {
 
 	// 创建流程
-	createFlowResp, err := flow_manage.CreateFlow(userId, flowName, approvers)
+	createFlowResp, err := flowManage.CreateFlow(userId, flowName, approvers)
 	if err != nil {
 		return "", "", err
 	}
 	flowId = *createFlowResp.Response.FlowId
 
 	// 创建电子文档，注意每次创建电子文档前必须先创建流程，文档和流程为一对一的绑定关系
-	_, err = flow_manage.CreateDocument(userId, flowId, ess_golang_kit.TemplateId, flowName)
+	_, err = flowManage.CreateDocument(userId, flowId, essGolangKit.TemplateId, flowName)
 	if err != nil {
 		return "", "", err
 	}
@@ -28,13 +29,13 @@ func CreateFlowByTemplateDirectly(userId, flowName string, approvers []*ess.Flow
 	time.Sleep(time.Duration(3) * time.Second)
 
 	// 开启流程
-	_, err = flow_manage.StartFlow(userId, flowId)
+	_, err = flowManage.StartFlow(userId, flowId)
 	if err != nil {
 		return "", "", err
 	}
 
 	// 获取签署链接
-	schemeResp, err := flow_manage.CreateSchemeUrl(userId, flowId)
+	schemeResp, err := flowManage.CreateSchemeUrl(userId, flowId)
 	if err != nil {
 		return "", "", err
 	}

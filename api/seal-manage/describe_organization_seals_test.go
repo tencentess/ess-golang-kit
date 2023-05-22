@@ -1,4 +1,4 @@
-package seal_manage
+package sealManage
 
 import (
 	ess_golang_kit "SdkTools"

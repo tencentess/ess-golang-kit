@@ -1,4 +1,4 @@
-package client_service
+package clientService
 
 import (
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
@@ -6,7 +6,7 @@ import (
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 )
 
-// 构造客户端调用实例
+// GetClientInstance 构造客户端调用实例
 func GetClientInstance(secretId, secretKey, endPoint string) *ess.Client {
 	pf := profile.NewClientProfile()
 	pf.HttpProfile.Endpoint = endPoint

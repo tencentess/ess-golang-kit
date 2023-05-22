@@ -1,10 +1,11 @@
-package organization_management
+package organizationManagement
 
 import (
 	ess_golang_kit "SdkTools"
+	"testing"
+
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
-	"testing"
 )
 
 // 查询员工信息调用样例

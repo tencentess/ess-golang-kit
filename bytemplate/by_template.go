@@ -5,7 +5,7 @@ import (
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 )
 
-// 构造签署人 - 以B2B2C为例, 实际请根据自己的场景构造签署方
+// BuildFlowCreateApprovers 构造签署人 - 以B2B2C为例, 实际请根据自己的场景构造签署方
 func BuildFlowCreateApprovers() []*ess.FlowCreateApprover {
 	// 个人签署方构造参数
 	personName := "********************"
@@ -24,7 +24,7 @@ func BuildFlowCreateApprovers() []*ess.FlowCreateApprover {
 	return approvers
 }
 
-// 打包个人签署方参与者信息
+// BuildPersonFlowCreateApprover 打包个人签署方参与者信息
 func BuildPersonFlowCreateApprover(name, mobile string) *ess.FlowCreateApprover {
 	// 签署参与者信息
 	approver := &ess.FlowCreateApprover{
@@ -45,7 +45,7 @@ func BuildPersonFlowCreateApprover(name, mobile string) *ess.FlowCreateApprover 
 	return approver
 }
 
-// 打包企业签署方参与者信息
+// BuildOrganizationFlowCreateApprover 打包企业签署方参与者信息
 func BuildOrganizationFlowCreateApprover(name, mobile, organizationName string) *ess.FlowCreateApprover {
 	// 签署参与者信息
 	approver := &ess.FlowCreateApprover{
@@ -68,7 +68,7 @@ func BuildOrganizationFlowCreateApprover(name, mobile, organizationName string) 
 	return approver
 }
 
-// 打包企业静默签署方参与者信息
+// BuildServerSignFlowCreateApprover 打包企业静默签署方参与者信息
 func BuildServerSignFlowCreateApprover() *ess.FlowCreateApprover {
 	// 签署参与者信息
 	approver := &ess.FlowCreateApprover{

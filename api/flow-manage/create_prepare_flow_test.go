@@ -1,10 +1,11 @@
-package flow_manage
+package flowManage
 
 import (
-	"SdkTools"
+	essGolangKit "SdkTools"
+	"testing"
+
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
-	"testing"
 )
 
 // 创建快速发起流程调用样例
@@ -27,7 +28,7 @@ func TestCreatePrepareFlow(t *testing.T) {
 			ApproverMobile: common.StringPtr("********************"),
 		},
 	}
-	response, err := CreatePrepareFlow(ess_golang_kit.OperatorUserId, flowName, resourceId, approvers)
+	response, err := CreatePrepareFlow(essGolangKit.OperatorUserId, flowName, resourceId, approvers)
 	if err != nil {
 		t.Errorf("CreatePrepareFlow error: %v", err)
 	}

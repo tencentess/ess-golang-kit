@@ -1,9 +1,10 @@
-package flow_manage
+package flowManage
 
 import (
 	ess_golang_kit "SdkTools"
-	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	"testing"
+
+	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 )
 
 func TestDescribeFlowBriefs(t *testing.T) {

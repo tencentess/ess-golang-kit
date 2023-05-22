@@ -1,7 +1,7 @@
-package person_account_management
+package personAccountManagement
 
 import (
-	"SdkTools"
+	essGolangKit "SdkTools"
 	"testing"
 )
 
@@ -10,7 +10,7 @@ func TestDescribeThirdPartyAuthCode(t *testing.T) {
 	// 电子签小程序跳转客户小程序时携带的授权查看码
 	authCode := "********************************"
 
-	response, err := DescribeThirdPartyAuthCode(ess_golang_kit.OperatorUserId, authCode)
+	response, err := DescribeThirdPartyAuthCode(essGolangKit.OperatorUserId, authCode)
 	if err != nil {
 		t.Errorf("DescribeThirdPartyAuthCode error: %v", err)
 	}

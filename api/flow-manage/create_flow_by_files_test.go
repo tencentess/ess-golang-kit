@@ -1,9 +1,10 @@
-package flow_manage
+package flowManage
 
 import (
 	ess_golang_kit "SdkTools"
-	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 	"testing"
+
+	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 )
 
 func TestCreateFlowByFiles(t *testing.T) {

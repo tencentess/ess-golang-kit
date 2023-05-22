@@ -1,8 +1,9 @@
-package template_management
+package templateManagement
 
 import (
-	"SdkTools"
+	essGolangKit "SdkTools"
 	client_service "SdkTools/api/client-service"
+
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 )
@@ -15,7 +16,7 @@ import (
 // 该接口常用来配合“创建电子文档”接口作为前置的接口使用。
 func DescribeFlowTemplates(userId, templateId string) (*ess.DescribeFlowTemplatesResponse, error) {
 	// 构造客户端调用实例
-	client := client_service.GetClientInstance(ess_golang_kit.SecretId, ess_golang_kit.SecretKey, ess_golang_kit.EndPoint)
+	client := client_service.GetClientInstance(essGolangKit.SecretId, essGolangKit.SecretKey, essGolangKit.EndPoint)
 
 	request := ess.NewDescribeFlowTemplatesRequest()
 	request.BaseRequest.SetHttpMethod("POST")

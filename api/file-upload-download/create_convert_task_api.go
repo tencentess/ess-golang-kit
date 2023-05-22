@@ -1,8 +1,9 @@
-package file_upload_download
+package fileUploadDownload
 
 import (
-	"SdkTools"
-	client_service "SdkTools/api/client-service"
+	essGolangKit "SdkTools"
+	clientService "SdkTools/api/client-service"
+
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 )
@@ -13,9 +14,10 @@ import (
 //
 // 此接口用于创建文件转换任务
 // 适用场景：将doc/docx文件转化为pdf文件
-func CreateConvertTaskApi(userId, resourceId, resourceType, resourceName string) (*ess.CreateConvertTaskApiResponse, error) {
+func CreateConvertTaskApi(userId, resourceId, resourceType,
+	resourceName string) (*ess.CreateConvertTaskApiResponse, error) {
 	// 构造客户端调用实例
-	client := client_service.GetClientInstance(ess_golang_kit.SecretId, ess_golang_kit.SecretKey, ess_golang_kit.EndPoint)
+	client := clientService.GetClientInstance(essGolangKit.SecretId, essGolangKit.SecretKey, essGolangKit.EndPoint)
 
 	request := ess.NewCreateConvertTaskApiRequest()
 	request.BaseRequest.SetHttpMethod("POST")

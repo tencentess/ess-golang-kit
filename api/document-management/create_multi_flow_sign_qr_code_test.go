@@ -1,7 +1,7 @@
-package document_management
+package documentManagement
 
 import (
-	"SdkTools"
+	essGolangKit "SdkTools"
 	"testing"
 )
 
@@ -11,7 +11,7 @@ func TestCreateMultiFlowSignQRCode(t *testing.T) {
 	// 签署流程名称，最大长度不超过200字符
 	flowName := "扫码签流程"
 
-	response, err := CreateMultiFlowSignQRCode(ess_golang_kit.OperatorUserId, templateId, flowName)
+	response, err := CreateMultiFlowSignQRCode(essGolangKit.OperatorUserId, templateId, flowName)
 	if err != nil {
 		t.Errorf("CreateMultiFlowSignQRCode error: %v", err)
 	}

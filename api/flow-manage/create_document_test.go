@@ -1,7 +1,7 @@
-package flow_manage
+package flowManage
 
 import (
-	"SdkTools"
+	essGolangKit "SdkTools"
 	"testing"
 )
 
@@ -15,7 +15,7 @@ func TestCreateDocument(t *testing.T) {
 	// 文件名列表,单个文件名最大长度200个字符
 	fileName := "********************************"
 
-	response, err := CreateDocument(ess_golang_kit.OperatorUserId, flowId, templateId, fileName)
+	response, err := CreateDocument(essGolangKit.OperatorUserId, flowId, templateId, fileName)
 	if err != nil {
 		t.Errorf("CreateDocument error: %v", err)
 	}

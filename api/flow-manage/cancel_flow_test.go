@@ -1,7 +1,7 @@
-package flow_manage
+package flowManage
 
 import (
-	"SdkTools"
+	essGolangKit "SdkTools"
 	"testing"
 )
 
@@ -10,7 +10,7 @@ func TestCancelFlow(t *testing.T) {
 	flowId := ""
 	cancelMessage := ""
 
-	response, err := CancelFlow(ess_golang_kit.OperatorUserId, flowId, cancelMessage)
+	response, err := CancelFlow(essGolangKit.OperatorUserId, flowId, cancelMessage)
 	if err != nil {
 		t.Errorf("CancelFlow error: %v", err)
 	}

@@ -1,13 +1,14 @@
 package byfile
 
 import (
-	"SdkTools"
+	essGolangKit "SdkTools"
 	"SdkTools/api"
-	"SdkTools/api/file-upload-download"
+	fileUploadDownload "SdkTools/api/file-upload-download"
 	"encoding/base64"
-	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 	"os"
 	"testing"
+
+	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 )
 
 // 如果您选择使用文件发起合同可以参考此处。通过此部分代码可以发起一份单C签署合同，帮您快速了解文件发起所必要的流程。您可以在体验后根据实际情况
@@ -42,7 +43,7 @@ func TestCreateFlowByFile(t *testing.T) {
 	fileBase64 := base64.StdEncoding.EncodeToString(bytes)
 
 	// 将文件进行上传然后发起合同，并返回签署链接
-	flowId, schemeUrl, err := api.CreateFlowByFileDirectly(ess_golang_kit.OperatorUserId, fileBase64, flowName, approvers)
+	flowId, schemeUrl, err := api.CreateFlowByFileDirectly(essGolangKit.OperatorUserId, fileBase64, flowName, approvers)
 	if err != nil {
 		panic(err)
 	}
@@ -58,7 +59,7 @@ func TestCreateFlowByFile(t *testing.T) {
 
 	// Step 3
 	// 下载合同
-	fileUrlResp, err := file_upload_download.DescribeFileUrls(ess_golang_kit.OperatorUserId, flowId)
+	fileUrlResp, err := fileUploadDownload.DescribeFileUrls(essGolangKit.OperatorUserId, flowId)
 	if err != nil {
 		panic(err)
 	}

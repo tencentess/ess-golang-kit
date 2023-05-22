@@ -1,7 +1,7 @@
-package document_management
+package documentManagement
 
 import (
-	"SdkTools"
+	essGolangKit "SdkTools"
 	"testing"
 )
 
@@ -9,7 +9,7 @@ import (
 func TestVerifyPdf(t *testing.T) {
 	flowId := ""
 
-	response, err := VerifyPdf(ess_golang_kit.OperatorUserId, flowId)
+	response, err := VerifyPdf(essGolangKit.OperatorUserId, flowId)
 	if err != nil {
 		t.Errorf("VerifyPdf error: %v", err)
 	}

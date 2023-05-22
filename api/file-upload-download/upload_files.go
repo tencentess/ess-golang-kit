@@ -1,8 +1,9 @@
-package file_upload_download
+package fileUploadDownload
 
 import (
-	"SdkTools"
-	"SdkTools/api/client-service"
+	essTools "SdkTools"
+	clientService "SdkTools/api/client-service"
+
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 )
@@ -14,7 +15,7 @@ import (
 // 适用场景：用于生成pdf资源编号（FileIds）来配合“用PDF创建流程”接口使用，使用场景可详见“用PDF创建流程”接口说明。
 // 调用是请注意此处的 Endpoint 和其他接口不同
 func UploadFiles(userId, fileBase64, fileName string) (*ess.UploadFilesResponse, error) {
-	client := client_service.GetClientInstance(ess_golang_kit.SecretId, ess_golang_kit.SecretKey, ess_golang_kit.FileEndPoint)
+	client := clientService.GetClientInstance(essTools.SecretId, essTools.SecretKey, essTools.FileEndPoint)
 	// 上传文件内容数组，最多支持20个文件
 	uploadFile := &ess.UploadFile{
 		FileBody: common.StringPtr(fileBase64),

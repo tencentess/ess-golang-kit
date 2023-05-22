@@ -1,7 +1,7 @@
-package template_management
+package templateManagement
 
 import (
-	"SdkTools"
+	essGolangKit "SdkTools"
 	"testing"
 )
 
@@ -9,7 +9,7 @@ import (
 func TestDescribeFlowTemplates(t *testing.T) {
 	templateId := "********************************"
 
-	response, err := DescribeFlowTemplates(ess_golang_kit.OperatorUserId, templateId)
+	response, err := DescribeFlowTemplates(essGolangKit.OperatorUserId, templateId)
 	if err != nil {
 		t.Errorf("DescribeFlowTemplates error: %v", err)
 	}

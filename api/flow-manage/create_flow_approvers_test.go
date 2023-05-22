@@ -1,9 +1,10 @@
-package flow_manage
+package flowManage
 
 import (
-	"SdkTools"
-	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
+	essGolangKit "SdkTools"
 	"testing"
+
+	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 )
 
 // 补充签署流程本企业签署人信息样例
@@ -30,7 +31,7 @@ func TestCreateFlowApprovers(t *testing.T) {
 
 	approvers := []*ess.FillApproverInfo{&approver}
 
-	response, err := CreateFlowApprovers(ess_golang_kit.OperatorUserId, flowId, approvers)
+	response, err := CreateFlowApprovers(essGolangKit.OperatorUserId, flowId, approvers)
 	if err != nil {
 		t.Errorf("CreateFlowApprovers error: %v", err)
 	}

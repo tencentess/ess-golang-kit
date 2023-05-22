@@ -1,4 +1,4 @@
-package flow_manage
+package flowManage
 
 import (
 	"SdkTools"
@@ -19,7 +19,7 @@ func TestCreateFlowSignReview(t *testing.T) {
 	//当ReviewType 是REJECT 时此字段必填,字符串长度不超过200
 	reviewMessage := "********************************"
 
-	response, err := CreateFlowSignReview(ess_golang_kit.OperatorUserId, flowId, reviewType, reviewMessage)
+	response, err := CreateFlowSignReview(essGolangKit.OperatorUserId, flowId, reviewType, reviewMessage)
 	if err != nil {
 		t.Errorf("CreateFlowSignReview error: %v", err)
 	}

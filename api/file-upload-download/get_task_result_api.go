@@ -1,8 +1,9 @@
-package file_upload_download
+package fileUploadDownload
 
 import (
-	"SdkTools"
-	client_service "SdkTools/api/client-service"
+	essGolangKit "SdkTools"
+	clientService "SdkTools/api/client-service"
+
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 )
@@ -16,7 +17,7 @@ import (
 // 注：该接口是“创建文件转换任务”接口的后置接口，用于查询转换任务的执行结果
 func GetTaskResultApi(userId, taskId string) (*ess.GetTaskResultApiResponse, error) {
 	// 构造客户端调用实例
-	client := client_service.GetClientInstance(ess_golang_kit.SecretId, ess_golang_kit.SecretKey, ess_golang_kit.EndPoint)
+	client := clientService.GetClientInstance(essGolangKit.SecretId, essGolangKit.SecretKey, essGolangKit.EndPoint)
 
 	request := ess.NewGetTaskResultApiRequest()
 	request.BaseRequest.SetHttpMethod("POST")

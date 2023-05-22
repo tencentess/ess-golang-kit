@@ -1,11 +1,12 @@
-package flow_manage
+package flowManage
 
 import (
-	"SdkTools"
+	essGolangKit "SdkTools"
 	client_service "SdkTools/api/client-service"
+	"time"
+
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
-	"time"
 )
 
 // CreateFlowByFiles 此接口（CreateFlowByFiles）用来通过上传后的pdf资源编号来创建待签署的合同流程。
@@ -13,10 +14,11 @@ import (
 // 官网文档：https://cloud.tencent.com/document/api/1323/70360
 //
 // 适用场景1：适用非制式的合同文件签署。一般开发者自己有完整的签署文件，可以通过该接口传入完整的PDF文件及流程信息生成待签署的合同流程。
-//适用场景2：可通过该接口传入制式合同文件，同时在指定位置添加签署控件。可以起到接口创建临时模板的效果。如果是标准的制式文件，建议使用模板功能生成模板ID进行合同流程的生成。
-//注意事项：该接口需要依赖“多文件上传”接口生成pdf资源编号（FileIds）进行使用。
-func CreateFlowByFiles(userId, flowName, fileId string, approvers []*ess.ApproverInfo) (*ess.CreateFlowByFilesResponse, error) {
-	client := client_service.GetClientInstance(ess_golang_kit.SecretId, ess_golang_kit.SecretKey, ess_golang_kit.EndPoint)
+// 适用场景2：可通过该接口传入制式合同文件，同时在指定位置添加签署控件。可以起到接口创建临时模板的效果。如果是标准的制式文件，建议使用模板功能生成模板ID进行合同流程的生成。
+// 注意事项：该接口需要依赖“多文件上传”接口生成pdf资源编号（FileIds）进行使用。
+func CreateFlowByFiles(userId, flowName, fileId string,
+	approvers []*ess.ApproverInfo) (*ess.CreateFlowByFilesResponse, error) {
+	client := client_service.GetClientInstance(essGolangKit.SecretId, essGolangKit.SecretKey, essGolangKit.EndPoint)
 
 	request := ess.NewCreateFlowByFilesRequest()
 	request.BaseRequest.SetHttpMethod("POST")
@@ -40,12 +42,12 @@ func CreateFlowByFiles(userId, flowName, fileId string, approvers []*ess.Approve
 // 如果您在实现基础场景外有进一步的功能实现需求，可以参考此处代码。
 // 注意事项：此处填入参数仅为样例，请在使用时更换为实际值。
 func CreateFlowByFilesExtended() (*ess.CreateFlowByFilesResponse, error) {
-	client := client_service.GetClientInstance(ess_golang_kit.SecretId, ess_golang_kit.SecretKey, ess_golang_kit.EndPoint)
+	client := client_service.GetClientInstance(essGolangKit.SecretId, essGolangKit.SecretKey, essGolangKit.EndPoint)
 	request := ess.NewCreateFlowByFilesRequest()
 	request.BaseRequest.SetHttpMethod("POST")
 	// 调用方用户信息，参考通用结构
 	request.Operator = &ess.UserInfo{
-		UserId: common.StringPtr(ess_golang_kit.OperatorUserId),
+		UserId: common.StringPtr(essGolangKit.OperatorUserId),
 	}
 
 	// 签署流程名称,最大长度200个字符
@@ -53,6 +55,62 @@ func CreateFlowByFilesExtended() (*ess.CreateFlowByFilesResponse, error) {
 
 	// 构建签署方信息
 	// 注意：文件发起时，签署方不能进行控件填写！！！如果有填写需求，请设置为发起方填写，或者使用模板发起！！！
+	packFlowApprovers(request)
+
+	// 签署pdf文件的资源编号列表，通过UploadFiles接口获取，暂时仅支持单文件发起
+	request.FileIds = []*string{common.StringPtr("*************************")}
+
+	// 签署流程的类型(如销售合同/入职合同等)，最大长度200个字符。填写后可以在控制台分类查看合同
+	request.FlowType = common.StringPtr("销售合同")
+
+	// 经办人内容控件配置，必须在此处给控件进行赋值，合同发起时控件即被填写完成。
+	// 注意：目前文件发起模式暂不支持动态表格控件
+	request.Components = []*ess.Component{
+		// 坐标定位，单行文本类型
+		buildComponentNormal("TEXT", "单行文本"),
+		// 表单域定位，单行文本类型
+		buildComponentField("TEXT", "单行文本"),
+		// 关键字定位，单行文本类型
+		buildComponentKeyword("TEXT", "单行文本"),
+	}
+
+	// 是否需要预览，true：预览模式，false：非预览（默认）；预览链接有效期300秒
+	//注：如果使用“预览模式”，出参会返回合同预览链接 PreviewUrl，不会正式发起合同，且出参不会返回签署流程编号 FlowId；
+	//如果使用“非预览”，则会正常返回签署流程编号 FlowId，不会生成合同预览链接 PreviewUrl。
+	request.NeedPreview = common.BoolPtr(false)
+
+	// 预览链接类型 默认:0-文件流, 1- H5链接 注意:此参数在NeedPreview 为true 时有效
+	request.PreviewType = common.Int64Ptr(0)
+
+	// 签署流程的签署截止时间。
+	//值为unix时间戳,精确到秒,不传默认为当前时间一年后
+	request.Deadline = common.Int64Ptr(time.Now().Add(7 * 24 * time.Hour).Unix())
+
+	// 发送类型：
+	//true：无序签
+	//false：有序签
+	//注：默认为false（有序签）
+	request.Unordered = common.BoolPtr(false)
+
+	// 发起方企业的签署人进行签署操作是否需要企业内部审批。使用此功能需要发起方企业有参与签署。
+	//若设置为true，审核结果需通过接口 CreateFlowSignReview 通知电子签，审核通过后，发起方企业签署人方可进行签署操作，否则会阻塞其签署操作。
+	//
+	//注：企业可以通过此功能与企业内部的审批流程进行关联，支持手动、静默签署合同。
+	request.NeedSignReview = common.BoolPtr(false)
+
+	// 用户自定义字段，回调的时候会进行透传，长度需要小于20480
+	request.UserData = common.StringPtr("UserData")
+
+	response, err := client.CreateFlowByFiles(request)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+// packFlowApprovers 构建签署方信息
+func packFlowApprovers(request *ess.CreateFlowByFilesRequest) {
 	request.Approvers = []*ess.ApproverInfo{
 		{
 			// 企业静默签署
@@ -117,58 +175,6 @@ func CreateFlowByFilesExtended() (*ess.CreateFlowByFilesResponse, error) {
 			},
 		},
 	}
-
-	// 签署pdf文件的资源编号列表，通过UploadFiles接口获取，暂时仅支持单文件发起
-	request.FileIds = []*string{common.StringPtr("*************************")}
-
-	// 签署流程的类型(如销售合同/入职合同等)，最大长度200个字符。填写后可以在控制台分类查看合同
-	request.FlowType = common.StringPtr("销售合同")
-
-	// 经办人内容控件配置，必须在此处给控件进行赋值，合同发起时控件即被填写完成。
-	// 注意：目前文件发起模式暂不支持动态表格控件
-	request.Components = []*ess.Component{
-		// 坐标定位，单行文本类型
-		buildComponentNormal("TEXT", "单行文本"),
-		// 表单域定位，单行文本类型
-		buildComponentField("TEXT", "单行文本"),
-		// 关键字定位，单行文本类型
-		buildComponentKeyword("TEXT", "单行文本"),
-	}
-
-	// 是否需要预览，true：预览模式，false：非预览（默认）；
-	//预览链接有效期300秒；
-	//
-	//注：如果使用“预览模式”，出参会返回合同预览链接 PreviewUrl，不会正式发起合同，且出参不会返回签署流程编号 FlowId；如果使用“非预览”，则会正常返回签署流程编号 FlowId，不会生成合同预览链接 PreviewUrl。
-	request.NeedPreview = common.BoolPtr(false)
-
-	// 预览链接类型 默认:0-文件流, 1- H5链接 注意:此参数在NeedPreview 为true 时有效
-	request.PreviewType = common.Int64Ptr(0)
-
-	// 签署流程的签署截止时间。
-	//值为unix时间戳,精确到秒,不传默认为当前时间一年后
-	request.Deadline = common.Int64Ptr(time.Now().Add(7 * 24 * time.Hour).Unix())
-
-	// 发送类型：
-	//true：无序签
-	//false：有序签
-	//注：默认为false（有序签）
-	request.Unordered = common.BoolPtr(false)
-
-	// 发起方企业的签署人进行签署操作是否需要企业内部审批。使用此功能需要发起方企业有参与签署。
-	//若设置为true，审核结果需通过接口 CreateFlowSignReview 通知电子签，审核通过后，发起方企业签署人方可进行签署操作，否则会阻塞其签署操作。
-	//
-	//注：企业可以通过此功能与企业内部的审批流程进行关联，支持手动、静默签署合同。
-	request.NeedSignReview = common.BoolPtr(false)
-
-	// 用户自定义字段，回调的时候会进行透传，长度需要小于20480
-	request.UserData = common.StringPtr("UserData")
-
-	response, err := client.CreateFlowByFiles(request)
-	if err != nil {
-		return nil, err
-	}
-
-	return response, nil
 }
 
 // buildSignComponentNormal 使用坐标模式进行控件定位

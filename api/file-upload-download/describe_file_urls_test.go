@@ -1,7 +1,7 @@
-package file_upload_download
+package fileUploadDownload
 
 import (
-	"SdkTools"
+	essGolangKit "SdkTools"
 	"testing"
 )
 
@@ -11,7 +11,7 @@ func TestDescribeFileUrls(t *testing.T) {
 	// 最大支持20个资源
 	flowId := "********************************"
 
-	response, err := DescribeFileUrls(ess_golang_kit.OperatorUserId, flowId)
+	response, err := DescribeFileUrls(essGolangKit.OperatorUserId, flowId)
 	if err != nil {
 		t.Errorf("DescribeFileUrls error: %v", err)
 	}

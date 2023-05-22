@@ -1,7 +1,7 @@
-package file_upload_download
+package fileUploadDownload
 
 import (
-	"SdkTools"
+	essGolangKit "SdkTools"
 	"testing"
 )
 
@@ -14,7 +14,7 @@ func TestCreateConvertTaskApi(t *testing.T) {
 	// 资源名称
 	resourceName := "********************************"
 
-	response, err := CreateConvertTaskApi(ess_golang_kit.OperatorUserId, resourceId, resourceType, resourceName)
+	response, err := CreateConvertTaskApi(essGolangKit.OperatorUserId, resourceId, resourceType, resourceName)
 	if err != nil {
 		t.Errorf("CreateConvertTaskApi error: %v", err)
 	}

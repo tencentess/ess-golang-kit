@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	algorithm = "TC3-HMAC-SHA256"
+	algorithm      = "TC3-HMAC-SHA256"
 	defaultTimeout = 5
 )
 
@@ -45,6 +45,7 @@ type ApiCaller struct {
 	Protocol string
 }
 
+// CallCloudApiV3 ...
 func CallCloudApiV3(apiCaller ApiCaller) (string, error) {
 	timestamp := time.Now().Unix()
 	// 1.拼接规范请求串
@@ -147,7 +148,7 @@ func hmacsha256(s, key string) string {
 // 构建请求
 func buildRequest(authorization string, timestamp int64, apiCaller ApiCaller) (*http.Request, error) {
 	req, err := http.NewRequest("POST",
-		apiCaller.Protocol + "://" + apiCaller.Host, strings.NewReader(apiCaller.Payload))
+		apiCaller.Protocol+"://"+apiCaller.Host, strings.NewReader(apiCaller.Payload))
 	if err != nil {
 		return nil, err
 	}

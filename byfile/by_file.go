@@ -1,12 +1,13 @@
 package byfile
 
 import (
-	"SdkTools"
+	essTools "SdkTools"
+
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 )
 
-// 构造签署人 - 以B2B2C为例, 实际请根据自己的场景构造签署方、控件
+// BuildApprovers 构造签署人 - 以B2B2C为例, 实际请根据自己的场景构造签署方、控件
 func BuildApprovers() []*ess.ApproverInfo {
 
 	// 个人签署方构造参数
@@ -27,7 +28,7 @@ func BuildApprovers() []*ess.ApproverInfo {
 	return approvers
 }
 
-// 打包个人签署方参与者信息
+// BuildPersonApprover 打包个人签署方参与者信息
 // 可选参数传入请参考：https://cloud.tencent.com/document/api/1323/70369#ApproverInfo
 func BuildPersonApprover(name, mobile string) *ess.ApproverInfo {
 	// 签署参与者信息
@@ -70,7 +71,7 @@ func BuildPersonApprover(name, mobile string) *ess.ApproverInfo {
 	return approver
 }
 
-// 打包企业签署方参与者信息
+// BuildOrganizationApprover 打包企业签署方参与者信息
 func BuildOrganizationApprover(name, mobile, organizationName string) *ess.ApproverInfo {
 	// 签署参与者信息
 	approver := &ess.ApproverInfo{
@@ -117,7 +118,7 @@ func BuildOrganizationApprover(name, mobile, organizationName string) *ess.Appro
 	return approver
 }
 
-// 打包企业静默签署方参与者信息
+// BuildServerSignApprover 打包企业静默签署方参与者信息
 func BuildServerSignApprover() *ess.ApproverInfo {
 	// 签署参与者信息
 	approver := &ess.ApproverInfo{
@@ -146,7 +147,7 @@ func BuildServerSignApprover() *ess.ApproverInfo {
 				// 控件类型，这里选择印章控件SIGN_SEAL，阅读传参文档时请注意此处为SignComponent控件类型
 				ComponentType: common.StringPtr("SIGN_SEAL"),
 				// 印章Id，发起后会使用该印章在指定区域进行自动签章
-				ComponentValue: common.StringPtr(ess_golang_kit.ServerSignSealId),
+				ComponentValue: common.StringPtr(essTools.ServerSignSealId),
 			},
 		},
 	}

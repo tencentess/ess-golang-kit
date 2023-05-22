@@ -1,8 +1,9 @@
-package organization_management
+package organizationManagement
 
 import (
 	ess_golang_kit "SdkTools"
 	client_service "SdkTools/api/client-service"
+
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 )
@@ -12,7 +13,8 @@ import (
 // 官网文档：https://cloud.tencent.com/document/product/1323/81115
 //
 // 查询员工信息，每次返回的数据量最大为20
-func DescribeIntegrationEmployees(userId string, limit, offset int64, filters []*ess.Filter) (*ess.DescribeIntegrationEmployeesResponse, error) {
+func DescribeIntegrationEmployees(userId string,
+	limit, offset int64, filters []*ess.Filter) (*ess.DescribeIntegrationEmployeesResponse, error) {
 	// 构造客户端调用实例
 	client := client_service.GetClientInstance(ess_golang_kit.SecretId, ess_golang_kit.SecretKey, ess_golang_kit.EndPoint)
 

@@ -1,8 +1,9 @@
-package document_management
+package documentManagement
 
 import (
-	"SdkTools"
+	ess_golang_kit "SdkTools"
 	client_service "SdkTools/api/client-service"
+
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 )
@@ -10,7 +11,6 @@ import (
 // CreateMultiFlowSignQRCode 创建一码多扫流程签署二维码
 //
 // 官网文档：https://cloud.tencent.com/document/product/1323/75450
-//
 //
 // 此接口（CreateMultiFlowSignQRCode）用于创建一码多扫流程签署二维码。
 // 适用场景：无需填写签署人信息，可通过模板id生成签署二维码，签署人可通过扫描二维码补充签署信息进行实名签署。常用于提前不知道签署人的身份信息场景，例如：劳务工招工、大批量员工入职等场景。

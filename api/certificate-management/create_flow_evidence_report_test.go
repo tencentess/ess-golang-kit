@@ -1,7 +1,7 @@
-package certificate_management
+package certificateManagement
 
 import (
-	"SdkTools"
+	essGolangKit "SdkTools"
 	"testing"
 )
 
@@ -9,7 +9,7 @@ import (
 func TestCreateFlowEvidenceReport(t *testing.T) {
 	flowId := "********************************"
 
-	response, err := CreateFlowEvidenceReport(ess_golang_kit.OperatorUserId, flowId)
+	response, err := CreateFlowEvidenceReport(essGolangKit.OperatorUserId, flowId)
 	if err != nil {
 		t.Errorf("CreateFlowEvidenceReport error: %v", err)
 	}

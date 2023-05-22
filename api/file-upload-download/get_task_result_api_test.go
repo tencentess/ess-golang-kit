@@ -1,7 +1,7 @@
-package file_upload_download
+package fileUploadDownload
 
 import (
-	"SdkTools"
+	essGolangKit "SdkTools"
 	"testing"
 )
 
@@ -10,7 +10,7 @@ func TestGetTaskResultApi(t *testing.T) {
 	// 任务Id，“创建文件转换任务”接口返回
 	taskId := "***********************"
 
-	response, err := GetTaskResultApi(ess_golang_kit.OperatorUserId, taskId)
+	response, err := GetTaskResultApi(essGolangKit.OperatorUserId, taskId)
 	if err != nil {
 		t.Errorf("GetTaskResultApi error: %v", err)
 	}

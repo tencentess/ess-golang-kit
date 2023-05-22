@@ -1,8 +1,9 @@
-package flow_manage
+package flowManage
 
 import (
-	"SdkTools"
+	essGolangKit "SdkTools"
 	client_service "SdkTools/api/client-service"
+
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 )
@@ -13,9 +14,10 @@ import (
 //
 // 适用场景：用户通过API 合同文件及签署信息，并可通过我们返回的URL在页面完成签署控件等信息的编辑与确认，快速发起合同.
 // 注：该接口文件的resourceId 是通过上传文件之后获取的。
-func CreatePrepareFlow(userId, flowName, resourceId string, approvers []*ess.FlowCreateApprover) (*ess.CreatePrepareFlowResponse, error) {
+func CreatePrepareFlow(userId, flowName, resourceId string,
+	approvers []*ess.FlowCreateApprover) (*ess.CreatePrepareFlowResponse, error) {
 	// 构造客户端调用实例
-	client := client_service.GetClientInstance(ess_golang_kit.SecretId, ess_golang_kit.SecretKey, ess_golang_kit.EndPoint)
+	client := client_service.GetClientInstance(essGolangKit.SecretId, essGolangKit.SecretKey, essGolangKit.EndPoint)
 
 	request := ess.NewCreatePrepareFlowRequest()
 	request.BaseRequest.SetHttpMethod("POST")

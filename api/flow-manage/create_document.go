@@ -1,8 +1,9 @@
-package flow_manage
+package flowManage
 
 import (
-	"SdkTools"
-	client_service "SdkTools/api/client-service"
+	essGolangKit "SdkTools"
+	clientService "SdkTools/api/client-service"
+
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 )
@@ -14,7 +15,7 @@ import (
 // 适用场景：见创建签署流程接口。注：该接口需要给对应的流程指定一个模板id，并且填充该模板中需要补充的信息。是“发起流程”接口的前置接口。
 func CreateDocument(userId, flowId, templateId, fileName string) (*ess.CreateDocumentResponse, error) {
 	// 构造客户端调用实例
-	client := client_service.GetClientInstance(ess_golang_kit.SecretId, ess_golang_kit.SecretKey, ess_golang_kit.EndPoint)
+	client := clientService.GetClientInstance(essGolangKit.SecretId, essGolangKit.SecretKey, essGolangKit.EndPoint)
 
 	request := ess.NewCreateDocumentRequest()
 	request.BaseRequest.SetHttpMethod("POST")
@@ -38,13 +39,13 @@ func CreateDocument(userId, flowId, templateId, fileName string) (*ess.CreateDoc
 // 注意事项：此处填入参数仅为样例，请在使用时更换为实际值。
 func CreateDocumentExtended() (*ess.CreateDocumentResponse, error) {
 	// 构造客户端调用实例
-	client := client_service.GetClientInstance(ess_golang_kit.SecretId, ess_golang_kit.SecretKey, ess_golang_kit.EndPoint)
+	client := clientService.GetClientInstance(essGolangKit.SecretId, essGolangKit.SecretKey, essGolangKit.EndPoint)
 
 	request := ess.NewCreateDocumentRequest()
 	request.BaseRequest.SetHttpMethod("POST")
 	// 调用方用户信息，参考通用结构
 	request.Operator = &ess.UserInfo{
-		UserId: common.StringPtr(ess_golang_kit.OperatorUserId),
+		UserId: common.StringPtr(essGolangKit.OperatorUserId),
 	}
 
 	// 签署流程编号,由CreateFlow接口返回

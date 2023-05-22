@@ -1,8 +1,9 @@
-package flow_manage
+package flowManage
 
 import (
-	"SdkTools"
-	client_service "SdkTools/api/client-service"
+	essGolangKit "SdkTools"
+	clientService "SdkTools/api/client-service"
+
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 )
@@ -15,7 +16,7 @@ import (
 // 注：如果合同流程中的参与方均已签署完毕，则无法通过该接口撤销合同。
 func CancelFlow(userId, flowId, cancelMessage string) (*ess.CancelFlowResponse, error) {
 	// 构造客户端调用实例
-	client := client_service.GetClientInstance(ess_golang_kit.SecretId, ess_golang_kit.SecretKey, ess_golang_kit.EndPoint)
+	client := clientService.GetClientInstance(essGolangKit.SecretId, essGolangKit.SecretKey, essGolangKit.EndPoint)
 
 	request := ess.NewCancelFlowRequest()
 	request.BaseRequest.SetHttpMethod("POST")

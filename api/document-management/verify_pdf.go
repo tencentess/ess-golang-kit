@@ -1,8 +1,9 @@
-package document_management
+package documentManagement
 
 import (
 	ess_golang_kit "SdkTools"
 	client_service "SdkTools/api/client-service"
+
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 )

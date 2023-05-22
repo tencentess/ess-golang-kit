@@ -1,7 +1,7 @@
-package document_management
+package documentManagement
 
 import (
-	"SdkTools"
+	essGolangKit "SdkTools"
 	"testing"
 )
 
@@ -10,7 +10,7 @@ func TestCancelMultiFlowSignQRCode(t *testing.T) {
 	// 二维码id
 	qrCodeId := "********************************"
 
-	response, err := CancelMultiFlowSignQRCode(ess_golang_kit.OperatorUserId, qrCodeId)
+	response, err := CancelMultiFlowSignQRCode(essGolangKit.OperatorUserId, qrCodeId)
 	if err != nil {
 		t.Errorf("CancelMultiFlowSignQRCode error: %v", err)
 	}

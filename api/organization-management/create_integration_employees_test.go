@@ -1,10 +1,11 @@
-package organization_management
+package organizationManagement
 
 import (
-	ess_golang_kit "SdkTools"
+	essTools "SdkTools"
+	"testing"
+
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
-	"testing"
 )
 
 // 创建员工调用样例
@@ -15,7 +16,7 @@ func TestCreateIntegrationEmployees(t *testing.T) {
 		DisplayName: common.StringPtr("张三"),
 	}}
 
-	response, err := CreateIntegrationEmployees(ess_golang_kit.OperatorUserId, employees)
+	response, err := CreateIntegrationEmployees(essTools.OperatorUserId, employees)
 	if err != nil {
 		t.Errorf("CreateIntegrationEmployees error: %v", err)
 	}

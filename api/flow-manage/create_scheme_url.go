@@ -1,8 +1,9 @@
-package flow_manage
+package flowManage
 
 import (
-	"SdkTools"
-	client_service "SdkTools/api/client-service"
+	essGolangKit "SdkTools"
+	clientService "SdkTools/api/client-service"
+
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 )
@@ -17,7 +18,7 @@ import (
 // 如您需要自主配置小程序跳转链接，请参考: 跳转小程序链接配置说明
 func CreateSchemeUrl(userId, flowId string) (*ess.CreateSchemeUrlResponse, error) {
 	// 构造客户端调用实例
-	client := client_service.GetClientInstance(ess_golang_kit.SecretId, ess_golang_kit.SecretKey, ess_golang_kit.EndPoint)
+	client := clientService.GetClientInstance(essGolangKit.SecretId, essGolangKit.SecretKey, essGolangKit.EndPoint)
 
 	request := ess.NewCreateSchemeUrlRequest()
 	request.BaseRequest.SetHttpMethod("POST")

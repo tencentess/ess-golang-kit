@@ -1,8 +1,9 @@
-package person_account_management
+package personAccountManagement
 
 import (
-	"SdkTools"
-	client_service "SdkTools/api/client-service"
+	essGolangKit "SdkTools"
+	clientService "SdkTools/api/client-service"
+
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 )
@@ -12,7 +13,7 @@ import (
 // 官网文档：https://cloud.tencent.com/document/product/1323/70368
 func DescribeThirdPartyAuthCode(userId, authCode string) (*ess.DescribeThirdPartyAuthCodeResponse, error) {
 	// 构造客户端调用实例
-	client := client_service.GetClientInstance(ess_golang_kit.SecretId, ess_golang_kit.SecretKey, ess_golang_kit.EndPoint)
+	client := clientService.GetClientInstance(essGolangKit.SecretId, essGolangKit.SecretKey, essGolangKit.EndPoint)
 
 	request := ess.NewDescribeThirdPartyAuthCodeRequest()
 	request.BaseRequest.SetHttpMethod("POST")

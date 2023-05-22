@@ -1,11 +1,12 @@
-package flow_manage
+package flowManage
 
 import (
-	"SdkTools"
-	client_service "SdkTools/api/client-service"
+	essGolangKit "SdkTools"
+	clientService "SdkTools/api/client-service"
+	"time"
+
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
-	"time"
 )
 
 // CreateFlow 创建签署流程
@@ -16,7 +17,7 @@ import (
 // 注：该接口是通过模板生成合同流程的前置接口，先创建一个不包含签署文件的流程。配合“创建电子文档”接口和“发起流程”接口使用。
 func CreateFlow(userId, flowName string, approvers []*ess.FlowCreateApprover) (*ess.CreateFlowResponse, error) {
 	// 构造客户端调用实例
-	client := client_service.GetClientInstance(ess_golang_kit.SecretId, ess_golang_kit.SecretKey, ess_golang_kit.EndPoint)
+	client := clientService.GetClientInstance(essGolangKit.SecretId, essGolangKit.SecretKey, essGolangKit.EndPoint)
 
 	request := ess.NewCreateFlowRequest()
 	request.BaseRequest.SetHttpMethod("POST")
@@ -37,13 +38,13 @@ func CreateFlow(userId, flowName string, approvers []*ess.FlowCreateApprover) (*
 // 注意事项：此处填入参数仅为样例，请在使用时更换为实际值。
 func CreateFlowExtended() (*ess.CreateFlowResponse, error) {
 	// 构造客户端调用实例
-	client := client_service.GetClientInstance(ess_golang_kit.SecretId, ess_golang_kit.SecretKey, ess_golang_kit.EndPoint)
+	client := clientService.GetClientInstance(essGolangKit.SecretId, essGolangKit.SecretKey, essGolangKit.EndPoint)
 
 	request := ess.NewCreateFlowRequest()
 	request.BaseRequest.SetHttpMethod("POST")
 	// 调用方用户信息，参考通用结构
 	request.Operator = &ess.UserInfo{
-		UserId: common.StringPtr(ess_golang_kit.OperatorUserId),
+		UserId: common.StringPtr(essGolangKit.OperatorUserId),
 	}
 
 	// 签署流程名称,最大长度200个字符

@@ -6,46 +6,52 @@ import (
 )
 
 const (
-	secretId = "****"
+	secretId  = "****"
 	secretKey = "****"
-	host = "ess.tencentcloudapi.com"
-	version = "2020-11-11"
-	region = "ap-guangzhou"
-	service = "ess"
-	protocol = "https"
-	userId = "****"
-	flowId = "****"
+	host      = "ess.tencentcloudapi.com"
+	version   = "2020-11-11"
+	region    = "ap-guangzhou"
+	service   = "ess"
+	protocol  = "https"
+	userId    = "****"
+	flowId    = "****"
 )
 
+// UserInfo 用户信息
 type UserInfo struct {
 	UserId string
 }
 
+// DescribeFlowBriefsRequest 查询流程摘要请求
 type DescribeFlowBriefsRequest struct {
 	Operator *UserInfo
-	FlowIds []string
+	FlowIds  []string
 }
 
+// DescribeFlowBriefsResponse 查询流程摘要返回
 type DescribeFlowBriefsResponse struct {
 	Response *DescribeFlowBriefsResponseInner
 }
 
+// DescribeFlowBriefsResponseInner ...
 type DescribeFlowBriefsResponseInner struct {
 	FlowBriefs []*FlowBriefs
 	RequestId  string
 	Error      *ErrorResponse
 }
 
+// FlowBriefs 流程摘要信息
 type FlowBriefs struct {
-	FlowId string
-	FlowName string
+	FlowId          string
+	FlowName        string
 	FlowDescription string
-	FlowType string
-	FlowStatus int64
-	CreatedOn int64
-	FlowMessage string
+	FlowType        string
+	FlowStatus      int64
+	CreatedOn       int64
+	FlowMessage     string
 }
 
+// ErrorResponse 错误信息
 type ErrorResponse struct {
 	Code    string
 	Message string
@@ -55,7 +61,7 @@ func main() {
 	action := "DescribeFlowBriefs"
 	requestData := &DescribeFlowBriefsRequest{
 		Operator: &UserInfo{UserId: userId},
-		FlowIds: []string{flowId},
+		FlowIds:  []string{flowId},
 	}
 	payload, err := json.Marshal(requestData)
 	if err != nil {

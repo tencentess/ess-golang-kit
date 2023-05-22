@@ -1,10 +1,11 @@
-package flow_manage
+package flowManage
 
 import (
-	"SdkTools"
+	essGolangKit "SdkTools"
+	"testing"
+
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
-	"testing"
 )
 
 // 创建签署流程调用样例
@@ -26,7 +27,7 @@ func TestCreateFlow(t *testing.T) {
 			ApproverMobile: common.StringPtr("********************************"),
 		},
 	}
-	response, err := CreateFlow(ess_golang_kit.OperatorUserId, flowName, approvers)
+	response, err := CreateFlow(essGolangKit.OperatorUserId, flowName, approvers)
 	if err != nil {
 		t.Errorf("CreateFlow error: %v", err)
 	}
