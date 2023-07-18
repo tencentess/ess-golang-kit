@@ -1,4 +1,4 @@
-个人帐号管理相关接口
+个人账号管理相关接口
 
 官网文档地址：
 https://cloud.tencent.com/document/product/1323/70367
