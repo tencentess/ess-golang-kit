@@ -8,13 +8,6 @@ import (
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 )
 
-// GetTaskResultApi 查询转换任务状态
-//
-// 官网文档：https://cloud.tencent.com/document/product/1323/78148
-//
-// 此接口用于查询转换任务状态
-// 适用场景：将doc/docx文件转化为pdf文件
-// 注：该接口是“创建文件转换任务”接口的后置接口，用于查询转换任务的执行结果
 func GetTaskResultApi(userId, taskId string) (*ess.GetTaskResultApiResponse, error) {
 	// 构造客户端调用实例
 	client := clientService.GetClientInstance(essGolangKit.SecretId, essGolangKit.SecretKey, essGolangKit.EndPoint)
@@ -25,7 +18,7 @@ func GetTaskResultApi(userId, taskId string) (*ess.GetTaskResultApiResponse, err
 	request.Operator = &ess.UserInfo{
 		UserId: common.StringPtr(userId),
 	}
-	// 任务Id，“创建文件转换任务”接口返回
+
 	request.TaskId = common.StringPtr(taskId)
 
 	return client.GetTaskResultApi(request)

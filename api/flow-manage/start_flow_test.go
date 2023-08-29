@@ -7,7 +7,7 @@ import (
 
 // 此接口用于发起流程调用样例
 func TestStartFlow(t *testing.T) {
-	// 签署流程编号，由CreateFlow接口返回
+
 	flowId := "***********************"
 
 	response, err := StartFlow(essGolangKit.OperatorUserId, flowId)

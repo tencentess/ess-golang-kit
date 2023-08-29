@@ -8,14 +8,6 @@ import (
 	ess "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess/v20201111"
 )
 
-// DescribeFlowBriefs 查询流程摘要
-//
-// 官网文档：https://cloud.tencent.com/document/product/1323/70358
-//
-// 适用场景：可用于主动查询某个合同流程的签署状态信息。可以配合回调通知使用。
-// 日调用量默认10W
-//
-// tips: 如果需要查询合同的详细情况，需要使用查询合同详情接口 https://cloud.tencent.com/document/product/1323/80032
 func DescribeFlowBriefs(userId string, flowIds []*string) (*ess.DescribeFlowBriefsResponse, error) {
 	client := clientService.GetClientInstance(essGolangKit.SecretId, essGolangKit.SecretKey, essGolangKit.EndPoint)
 

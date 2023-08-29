@@ -6,8 +6,6 @@ import (
 	"testing"
 )
 
-// 主企业代子企业使用文件发起合同的简单样例，如需更详细的参数使用说明，请参考 flow-manage/create_flow_by_files
-// 注意：使用集团代发起功能，需要主企业和子企业均已加入集团，并且主企业OperatorUserId对应人员被赋予了对应操作权限
 func TestGroupCreateFlowByFiles(t *testing.T) {
 	flowName := ""
 	fileId := ""

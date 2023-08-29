@@ -7,7 +7,7 @@ import (
 
 // 取消一码多扫二维码调用样例
 func TestCancelMultiFlowSignQRCode(t *testing.T) {
-	// 二维码id
+
 	qrCodeId := "********************************"
 
 	response, err := CancelMultiFlowSignQRCode(essGolangKit.OperatorUserId, qrCodeId)

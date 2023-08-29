@@ -6,7 +6,7 @@ import (
 )
 
 func TestCreateSchemeUrl(t *testing.T) {
-	// 成功发起合同的flowId
+
 	flowId := "********************************"
 
 	response, err := CreateSchemeUrl(essGolangKit.OperatorUserId, flowId)
