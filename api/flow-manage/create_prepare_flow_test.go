@@ -13,7 +13,7 @@ func TestCreatePrepareFlow(t *testing.T) {
 	flowName := "快速发起合同"
 	resourceId := "********************"
 	approvers := []*ess.FlowCreateApprover{
-
+		{
 			ApproverType: common.Int64Ptr(1),
 
 			ApproverName: common.StringPtr("********************"),

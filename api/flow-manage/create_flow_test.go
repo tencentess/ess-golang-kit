@@ -12,8 +12,9 @@ import (
 func TestCreateFlow(t *testing.T) {
 	flowName := "我的第一份模板合同"
 	approvers := []*ess.FlowCreateApprover{
-			ApproverType: common.Int64Ptr(1),
-			ApproverName: common.StringPtr("********************************"),
+		{
+			ApproverType:   common.Int64Ptr(1),
+			ApproverName:   common.StringPtr("********************************"),
 			ApproverMobile: common.StringPtr("********************************"),
 		},
 	}
