@@ -38,10 +38,10 @@ github.com/rogpeppe/go-internal v1.6.1 h1:/FiVV8dS/e+YqF2JvO3yXRFbBLTIuSDkuC7aBO
 github.com/rogpeppe/go-internal v1.6.1/go.mod h1:xXDCJY+GAPziupqXw64V24skbSoqbTEfhy4qGm1nDQc=
 github.com/spf13/cast v1.5.0 h1:rj3WzYc11XZaIZMPKmwP96zkFEnnAmV8s6XbB2aY32w=
 github.com/spf13/cast v1.5.0/go.mod h1:SpXXQ5YoyJw6s3/6cMTQuxvgRl3PCJiyaX9p6b155UU=
-github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common v1.0.604 h1:BiuYcs8fINjZT9omCf8tV+rZkrZdf+Hq4TMWUNqYNgY=
-github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common v1.0.604/go.mod h1:7sCQWVkxcsR38nffDW057DRGk8mUjK1Ing/EFOK8s8Y=
-github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess v1.0.604 h1:G5vQuTYAD0zoVNwU/DQ0i/+/7TOSO4jlCk8/IpGru24=
-github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess v1.0.604/go.mod h1:eSYNosj7L6HuIsfijfPkPMo80jnOniSA9KAr63cFcE8=
+github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common v1.0.1074 h1:rlVhKPIEMhod0wm5KymTqBnC9PQIYVobQjV3uPdd2u8=
+github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common v1.0.1074/go.mod h1:r5r4xbfxSaeR04b166HGsBa/R4U3SueirEUpXGuw+Q0=
+github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess v1.0.1074 h1:1DYP/kkRCvz/vsvFr7+kZiMkziDkjofrBY7UCJXU2Cw=
+github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/ess v1.0.1074/go.mod h1:qMOL7kIOzOeH3etry2na0g3CX8aSbquHye6XjJ5gKyc=
 github.com/tjfoc/gmsm v1.4.1 h1:aMe1GlZb+0bLjn+cKTPEvvn9oUEBlJitaZiiBwsbgho=
 github.com/tjfoc/gmsm v1.4.1/go.mod h1:j4INPkHWMrhJb38G+J6W4Tw0AbuN8Thu3PbdVYhVcTE=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
